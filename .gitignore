@@ -1,0 +1,5 @@
+/var/kiwitcms/**
+/var/mariadb/**
+
+!.gitkeep
+!.gitignore

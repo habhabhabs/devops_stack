@@ -1,0 +1,40 @@
+version: "3.8"
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.20.11.0/24
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.20.22.0/24
+services:
+  mariadb:
+    image: mariadb:10
+    restart: always
+    env_file: ./etc/docker.env
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./etc/mariadb/conf.d:/etc/mysql/conf.d
+      - ./var/mariadb:/var/lib/mysql
+    networks:
+      - backend
+  kiwi:
+    image: kiwitcms/kiwi:latest
+    restart: always
+    env_file: ./etc/docker.env
+    depends_on:
+      - mariadb
+    volumes:
+      - ./var/kiwitcms:/Kiwi/uploads
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    networks:
+      - backend
+    
+
