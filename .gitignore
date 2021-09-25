@@ -1,6 +1,10 @@
 /var/gitea/**
 /var/kiwitcms/**
 /var/mariadb/**
+/var/swag/**
+
+**/duckdns.env
+**/swag.env
 
 !.gitkeep
 !.gitignore

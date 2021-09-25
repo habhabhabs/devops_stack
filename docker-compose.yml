@@ -13,6 +13,24 @@ networks:
       config:
         - subnet: 10.20.22.0/24
 services:
+  duckdns:
+    image: ghcr.io/linuxserver/duckdns:latest
+    restart: always
+    env_file: ./etc/duckdns.env
+  swag:
+    image: ghcr.io/linuxserver/swag:latest
+    cap_add:
+      - NET_ADMIN
+    restart: always
+    env_file: ./etc/swag.env
+    volumes:
+     - ./var/swag:/config
+    ports:
+     - "433:433"
+     - "80:80"
+    networks:
+     - backend
+     - frontend
   mariadb:
     image: "mariadb:${MARIADB_IMAGE_VERSION}"
     restart: always
