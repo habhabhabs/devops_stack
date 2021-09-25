@@ -1,17 +1,11 @@
 version: "3.8"
 networks:
-  frontend:
+  default:
     driver: bridge
     ipam:
       driver: default
       config:
         - subnet: 10.20.11.0/24
-  backend:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.20.22.0/24
 services:
   duckdns:
     image: ghcr.io/linuxserver/duckdns:latest
@@ -28,9 +22,10 @@ services:
     ports:
      - "433:433"
      - "80:80"
-    networks:
-     - backend
-     - frontend
+  smtp-sgdevlab:
+    image: namshi/smtp:latest
+    restart: always
+    env_file: ./etc/smtp.env
   mariadb:
     image: "mariadb:${MARIADB_IMAGE_VERSION}"
     restart: always
@@ -42,8 +37,6 @@ services:
       - ./var/mariadb:/var/lib/mysql
     ports:
       - "3306:3306"
-    networks:
-      - backend
   kiwi:
     image: "kiwitcms/kiwi:${KIWI_IMAGE_VERSION}"
     restart: always
@@ -55,8 +48,6 @@ services:
     ports:
       - "8080:8080"
       # - "8443:8443" # for self-gen SSL - not required
-    networks:
-      - backend
   gitea:
     image: "gitea/gitea:${GITEA_IMAGE_VERSION}"
     restart: always
@@ -69,8 +60,6 @@ services:
       - ./etc/tz/sgt_localtime:/etc/localtime:ro
     ports:
       - "3000:3000"
-    networks:
-      - backend
 
     
 

@@ -4,6 +4,7 @@
 /var/swag/**
 
 **/duckdns.env
+**/smtp.env
 **/swag.env
 
 !.gitkeep
