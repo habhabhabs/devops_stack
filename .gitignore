@@ -1,4 +1,5 @@
 /var/gitea/**
+/var/jenkins/**
 /var/kiwitcms/**
 /var/mariadb/**
 /var/swag/**

@@ -20,7 +20,7 @@ services:
     volumes:
      - ./var/swag:/config
     ports:
-     - "433:433"
+     - "443:443"
      - "80:80"
   smtp-sgdevlab:
     image: namshi/smtp:latest
@@ -60,6 +60,14 @@ services:
       - ./etc/tz/sgt_localtime:/etc/localtime:ro
     ports:
       - "3000:3000"
+  jenkins:
+    image: "jenkins/jenkins:${JENKINS_IMAGE_VERSION}"
+    restart: always
+    volumes:
+      - ./var/jenkins:/var/jenkins_home
+    ports:
+      - "9090:8080"
+      - "50000:50000"
 
     
 
