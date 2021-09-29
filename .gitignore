@@ -2,6 +2,7 @@
 /var/jenkins/**
 /var/kiwitcms/**
 /var/mariadb/**
+/var/nexus/**
 /var/swag/**
 
 **/duckdns.env

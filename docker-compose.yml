@@ -45,9 +45,14 @@ services:
       - mariadb
     volumes:
       - ./var/kiwitcms:/Kiwi/uploads
-    ports:
-      - "8080:8080"
-      # - "8443:8443" # for self-gen SSL - not required
+  dokuwiki:
+    image: "ghcr.io/linuxserver/dokuwiki:${DOKUWIKI_IMAGE_VERSION}"
+    restart: always
+    env_file: ./etc/docker.env
+    volumes:
+      - ./var/gitea:/config
+    # ports:
+    #   - "80:80"
   gitea:
     image: "gitea/gitea:${GITEA_IMAGE_VERSION}"
     restart: always
@@ -58,16 +63,30 @@ services:
       - ./var/gitea:/data
       - ./etc/tz/sgt_timezone:/etc/timezone:ro
       - ./etc/tz/sgt_localtime:/etc/localtime:ro
-    ports:
-      - "3000:3000"
+    # ports:
+    #  - "3000:3000"
   jenkins:
     image: "jenkins/jenkins:${JENKINS_IMAGE_VERSION}"
     restart: always
     volumes:
       - ./var/jenkins:/var/jenkins_home
     ports:
-      - "9090:8080"
+    #  - "9090:8080"
       - "50000:50000"
-
-    
+  # vault:
+  #   image: "vault:${VAULT_IMAGE_VERSION}"
+  #   cap_add:
+  #     - IPC_LOCK
+  #   restart: always
+  #   env_file: ./etc/docker.env
+  #   command: server
+  #   volumes:
+  #     - ./var/vault:/vault/file
+  nexus:
+    image: "sonatype/nexus3:${NEXUS_IMAGE_VERSION}"
+    restart: always
+    volumes:
+      - ./var/nexus:/nexus-data
+    # ports:
+    # - 8081
 
