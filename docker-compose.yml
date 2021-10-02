@@ -44,6 +44,7 @@ services:
     depends_on:
       - mariadb
     volumes:
+      - ./etc/kiwitcms/local_settings.py:/venv/lib64/python3.8/site-packages/tcms/settings/local_settings.py
       - ./var/kiwitcms:/Kiwi/uploads
   dokuwiki:
     image: "ghcr.io/linuxserver/dokuwiki:${DOKUWIKI_IMAGE_VERSION}"
