@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp -r ./* ../../var/swag/.
+cp -r ./* ../../../var/swag/.
