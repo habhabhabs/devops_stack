@@ -1,7 +1,6 @@
 /var/dokuwiki/**
 /var/gitea/**
 /var/jenkins/**
-/var/keycloak/**
 /var/kiwitcms/**
 /var/mariadb/**
 /var/nexus/**
