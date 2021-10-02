@@ -50,7 +50,7 @@ services:
     restart: always
     env_file: ./etc/docker.env
     volumes:
-      - ./var/gitea:/config
+      - ./var/dokuwiki:/config
     # ports:
     #   - "80:80"
   gitea:
