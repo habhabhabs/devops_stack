@@ -66,6 +66,16 @@ services:
       - ./etc/tz/sgt_localtime:/etc/localtime:ro
     # ports:
     #  - "3000:3000"
+  keycloak:
+    image: "jboss/keycloak:${KEYCLOAK_IMAGE_VERSION}"
+    restart: always
+    env_file: ./etc/docker.env
+    volumes:
+      - ./var/keycloak/tmp:/tmp
+      - ./var/keycloak/data:/opt/jboss/keycloak/standalone/data
+    #ports:
+    #  - "8080:8080"
+    #  - "8443:8443"
   jenkins:
     image: "jenkins/jenkins:${JENKINS_IMAGE_VERSION}"
     restart: always

@@ -1,0 +1,24 @@
+{{template "base/head" .}}
+<div class="page-content home">
+	<div class="ui stackable middle very relaxed page grid">
+		<div class="sixteen wide center aligned centered column">
+			<div>
+				<img class="logo" width="220" height="220" src="{{AssetUrlPrefix}}/img/logo.svg"/>
+			</div>
+			<div class="hero">
+				<h1 class="ui icon header title">
+					{{AppName}}
+				</h1>
+				<h2>Only for authorised users.</h2>
+				<p>&nbsp;</p>
+				<h2>Directory for other services</h2>
+                <h3><a href="https://iam.sgdevlab.duckdns.org/" target="_blank">Keycloak Authentication Provider</a></h3>
+				<h3><a href="https://kiwi.sgdevlab.duckdns.org/" target="_blank">Kiwi Test Case Management</a></h3>
+				<h3><a href="https://jenkins.sgdevlab.duckdns.org/" target="_blank">Jenkins Pipeline Management</a></h3>
+				<h3><a href="https://wiki.sgdevlab.duckdns.org/" target="_blank">Knowledge Base Wiki</a></h3>
+				<h3><a href="https://nexus.sgdevlab.duckdns.org/" target="_blank">Private Registry for Artifacts</a></h3>
+			</div>
+		</div>
+	</div>
+</div>
+{{template "base/footer" .}}
