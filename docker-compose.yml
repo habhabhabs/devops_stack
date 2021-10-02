@@ -70,6 +70,8 @@ services:
     image: "jboss/keycloak:${KEYCLOAK_IMAGE_VERSION}"
     restart: always
     env_file: ./etc/docker.env
+    depends_on:
+      - mariadb
     volumes:
       - ./var/keycloak/tmp:/tmp
       - ./var/keycloak/data:/opt/jboss/keycloak/standalone/data
