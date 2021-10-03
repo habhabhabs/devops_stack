@@ -54,6 +54,16 @@ services:
       - ./var/dokuwiki:/config
     # ports:
     #   - "80:80"
+  keycloak:
+    image: "jboss/keycloak:${KEYCLOAK_IMAGE_VERSION}"
+    restart: always
+    env_file: ./etc/docker.env
+    volumes:
+      - ./var/keycloak/tmp:/tmp
+      - ./var/keycloak/data:/opt/jboss/keycloak/standalone/data
+    # ports:
+    #   - "8080:8080"
+    #   - "8443:8443"
   gitea:
     image: "gitea/gitea:${GITEA_IMAGE_VERSION}"
     restart: always
