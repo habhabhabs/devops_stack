@@ -80,10 +80,18 @@ services:
     image: "jenkins/jenkins:${JENKINS_IMAGE_VERSION}"
     restart: always
     volumes:
+      #- ./etc/jenkins/jenkins.war:/usr/share/jenkins/jenkins.war
       - ./var/jenkins:/var/jenkins_home
     ports:
     #  - "9090:8080"
       - "50000:50000"
+  wboboard:
+    image: lovasoa/wbo
+    retart: always
+    volumes:
+      - ./var/wboboard:/opt/app/server-data
+    #ports:
+    #  - "8111:80"
   # vault:
   #   image: "vault:${VAULT_IMAGE_VERSION}"
   #   cap_add:
