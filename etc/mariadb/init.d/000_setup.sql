@@ -5,3 +5,7 @@ GRANT ALL PRIVILEGES ON kiwi.* TO 'kiwidba'@'%';
 CREATE DATABASE gitea CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER 'giteadba'@'%' IDENTIFIED BY 'DK8BVGaLfEvQOe';
 GRANT ALL PRIVILEGES ON gitea.* TO 'giteadba'@'%';
+
+CREATE DATABASE drone CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'dronedba'@'%' IDENTIFIED BY '7kYmXUGPM6GFqd';
+GRANT ALL PRIVILEGES ON drone.* TO 'dronedba'@'%';
