@@ -7,25 +7,25 @@ networks:
       config:
         - subnet: 10.20.11.0/24
 services:
-  duckdns:
-    image: ghcr.io/linuxserver/duckdns:latest
-    restart: always
-    env_file: ./etc/duckdns.env
-  swag:
-    image: ghcr.io/linuxserver/swag:latest
-    cap_add:
-      - NET_ADMIN
-    restart: always
-    env_file: ./etc/swag.env
-    volumes:
-     - ./var/swag:/config
-    ports:
-     - "443:443"
-     - "80:80"
-  smtp-sgdevlab:
-    image: namshi/smtp:latest
-    restart: always
-    env_file: ./etc/smtp.env
+  # duckdns:
+  #   image: ghcr.io/linuxserver/duckdns:latest
+  #   restart: always
+  #   env_file: ./etc/duckdns.env
+  # swag:
+  #   image: ghcr.io/linuxserver/swag:latest
+  #   cap_add:
+  #     - NET_ADMIN
+  #   restart: always
+  #   env_file: ./etc/swag.env
+  #   volumes:
+  #     - ./var/swag:/config
+  #   ports:
+  #     - "443:443"
+  #     - "80:80"
+  # smtp-sgdevlab:
+  #   image: namshi/smtp:latest
+  #   restart: always
+  #   env_file: ./etc/smtp.env
   mariadb:
     image: "mariadb:${MARIADB_IMAGE_VERSION}"
     restart: always
@@ -37,33 +37,35 @@ services:
       - ./var/mariadb:/var/lib/mysql
     ports:
       - "3306:3306"
-  kiwi:
-    image: "kiwitcms/kiwi:${KIWI_IMAGE_VERSION}"
-    restart: always
-    env_file: ./etc/docker.env
-    depends_on:
-      - mariadb
-    volumes:
-      - ./etc/kiwitcms/local_settings.py:/venv/lib64/python3.8/site-packages/tcms/settings/local_settings.py
-      - ./var/kiwitcms:/Kiwi/uploads
-  dokuwiki:
-    image: "ghcr.io/linuxserver/dokuwiki:${DOKUWIKI_IMAGE_VERSION}"
-    restart: always
-    env_file: ./etc/docker.env
-    volumes:
-      - ./var/dokuwiki:/config
-    # ports:
-    #   - "80:80"
-  keycloak:
-    image: "jboss/keycloak:${KEYCLOAK_IMAGE_VERSION}"
-    restart: always
-    env_file: ./etc/docker.env
-    volumes:
-      - ./var/keycloak/tmp:/tmp
-      - ./var/keycloak/data:/opt/jboss/keycloak/standalone/data
-    # ports:
-    #   - "8080:8080"
-    #   - "8443:8443"
+  # kiwi:
+  #   image: "kiwitcms/kiwi:${KIWI_IMAGE_VERSION}"
+  #   restart: always
+  #   env_file: ./etc/docker.env
+  #   depends_on:
+  #     - mariadb
+  #   volumes:
+  #     - ./etc/kiwitcms/local_settings.py:/venv/lib64/python3.8/site-packages/tcms/settings/local_settings.py
+  #     - ./var/kiwitcms:/Kiwi/uploads
+  #   ports:
+  #     - "3004:80"
+  # dokuwiki:
+  #   image: "ghcr.io/linuxserver/dokuwiki:${DOKUWIKI_IMAGE_VERSION}"
+  #   restart: always
+  #   env_file: ./etc/docker.env
+  #   volumes:
+  #     - ./var/dokuwiki:/config
+  #   # ports:
+  #   #   - "80:80"
+  # keycloak:
+  #   image: "jboss/keycloak:${KEYCLOAK_IMAGE_VERSION}"
+  #   restart: always
+  #   env_file: ./etc/docker.env
+  #   volumes:
+  #     - ./var/keycloak/tmp:/tmp
+  #     - ./var/keycloak/data:/opt/jboss/keycloak/standalone/data
+  #   ports:
+  #     - "3003:8080"
+  #     - "8443:8443"
   gitea:
     image: "gitea/gitea:${GITEA_IMAGE_VERSION}"
     restart: always
@@ -74,6 +76,9 @@ services:
       - ./var/gitea:/data
       - ./etc/tz/sgt_timezone:/etc/timezone:ro
       - ./etc/tz/sgt_localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "222:22"
   drone:
     image: "drone/drone:${DRONE_IMAGE_VERSION}"
     restart: always
@@ -82,6 +87,9 @@ services:
       - gitea
     volumes:
       - ./var/drone:/data
+    ports:
+      - "3001:80"
+      - "9001:9000"
   drone-runner:
     image: "drone/drone-runner-docker:${DRONE_DOCKER_RUNNER_IMAGE_VERSION}"
     restart: always
@@ -90,13 +98,15 @@ services:
       - drone
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  wboboard:
-    image: lovasoa/wbo
-    restart: always
-    volumes:
-      - ./var/wboboard:/opt/app/server-data
-    #ports:
-    #  - "8111:80"
+    ports:
+      - "3002:3000"
+  # wboboard:
+  #   image: lovasoa/wbo
+  #   restart: always
+  #   volumes:
+  #     - ./var/wboboard:/opt/app/server-data
+  #   ports:
+  #     - "3005:80"
   # vault:
   #   image: "vault:${VAULT_IMAGE_VERSION}"
   #   cap_add:
@@ -106,11 +116,10 @@ services:
   #   command: server
   #   volumes:
   #     - ./var/vault:/vault/file
-  nexus:
-    image: "sonatype/nexus3:${NEXUS_IMAGE_VERSION}"
-    restart: always
-    volumes:
-      - ./var/nexus:/nexus-data
-    # ports:
-    # - 8081
-
+  # nexus:
+  #   image: "sonatype/nexus3:${NEXUS_IMAGE_VERSION}"
+  #   restart: always
+  #   volumes:
+  #     - ./var/nexus:/nexus-data
+  #   # ports:
+  #   # - 8081
